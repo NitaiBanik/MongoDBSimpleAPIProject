@@ -11,6 +11,6 @@ namespace BooksApi.Services
         Customer AddCustomer(Customer customer);
         void UpdateBookById(string id, Book bookIn);
         void RemoveBook(string id);
-        List<string> GetBookNames(int price)
+        List<string> GetBookNames(int price);
     }
 }
