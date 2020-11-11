@@ -18,12 +18,12 @@ namespace BooksApi.Controllers
 
         [HttpGet]
         public List<Book> Get() =>
-            _bookService.GetAll();
+            _bookService.GetAllBooks();
 
         [HttpGet("{id}")]
         public Book Get(string id)
         {
-            var book = _bookService.GetById(id);
+            var book = _bookService.GetBookById(id);
 
             if (book == null)
             {
@@ -34,30 +34,30 @@ namespace BooksApi.Controllers
         }
 
         [HttpPost]
-        public void Create(Book book)
+        public void AddBook(Book book)
         {
-            _bookService.Create(book);
+            _bookService.AddBook(book);
 
         }
 
         [HttpPost("{customer}")]
         public void CreateCustomer(Customer customer)
         {
-            _bookService.CreateCustomer(customer);
+            _bookService.AddCustomer(customer);
 
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(string id, Book bookIn)
+        public IActionResult UpdateBook(string id, Book bookIn)
         {
-            var book = _bookService.GetById(id);
+            var book = _bookService.GetBookById(id);
 
             if (book == null)
             {
                 return NotFound();
             }
 
-            _bookService.UpdateById(id, bookIn);
+            _bookService.UpdateBookById(id, bookIn);
 
             return NoContent();
         }
@@ -65,14 +65,14 @@ namespace BooksApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var book = _bookService.GetById(id);
+            var book = _bookService.GetBookById(id);
 
             if (book == null)
             {
                 return NotFound();
             }
 
-            _bookService.Remove(book.Id);
+            _bookService.RemoveBook(book.Id);
 
             return NoContent();
         }
@@ -80,7 +80,7 @@ namespace BooksApi.Controllers
         [HttpGet("price/{id}")]
         public List<string> Get(int price)
         {
-            var bookNames = _bookService.GetNames(price);
+            var bookNames = _bookService.GetBookNames(price);
             return bookNames;
         }
     }

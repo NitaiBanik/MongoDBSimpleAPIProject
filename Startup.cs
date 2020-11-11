@@ -1,4 +1,5 @@
 using BooksApi.Models;
+using BooksApi.Models.Settings;
 using BooksApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

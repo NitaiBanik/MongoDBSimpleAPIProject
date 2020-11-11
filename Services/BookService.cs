@@ -1,11 +1,12 @@
 ﻿using BooksApi.Models;
+using BooksApi.Models.Settings;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BooksApi.Services
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private readonly IMongoCollection<Book> _books;
         private readonly IMongoCollection<Customer> _customer;
@@ -19,40 +20,40 @@ namespace BooksApi.Services
             _customer = database.GetCollection<Customer>(settings.CustomerCollectionName);
         }
 
-        public List<Book> GetAll()
+        public List<Book> GetAllBooks()
         {
             return _books.Find(book => true).ToList();
         }
-        public Book GetById(string id)
+        public Book GetBookById(string id)
         {
             var book = _books.Find<Book>(book => book.Id == id).FirstOrDefault();
 
             return null;
         }
 
-        public Book Create(Book book)
+        public Book AddBook(Book book)
         {
             _books.InsertOne(book);       
             return book;
         }
-        public Customer CreateCustomer(Customer customer)
+        public Customer AddCustomer(Customer customer)
         {
             _customer.InsertOne(customer);
             return customer;
         }
 
-        public void UpdateById(string id, Book bookIn)
+        public void UpdateBookById(string id, Book bookIn)
         {
             _books.ReplaceOne(book => book.Id == id, bookIn);
         }
 
 
-        public void Remove(string id)
+        public void RemoveBook(string id)
         {
             _books.DeleteOne(book => book.Id == id);
         }
 
-        public List<string> GetNames(int price)
+        public List<string> GetBookNames(int price)
         {
             var x = _books.Find(b => b.Price >= price).ToList();
 
