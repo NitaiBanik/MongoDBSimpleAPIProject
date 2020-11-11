@@ -17,11 +17,11 @@ namespace BooksApi.Services
             _books = database.GetCollection<Book>(settings.BooksCollectionName);
         }
 
-        public List<Book> Get()
+        public List<Book> GetAll()
         {
             return _books.Find(book => true).ToList();
         }
-        public Book Get(string id)
+        public Book GetById(string id)
         {
             var book = _books.Find<Book>(book => book.Id == id).FirstOrDefault();
 
@@ -35,7 +35,7 @@ namespace BooksApi.Services
             return book;
         }
 
-        public void Update(string id, Book bookIn)
+        public void UpdateById(string id, Book bookIn)
         {
             _books.ReplaceOne(book => book.Id == id, bookIn);
         }

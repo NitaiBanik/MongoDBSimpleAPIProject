@@ -18,12 +18,12 @@ namespace BooksApi.Controllers
 
         [HttpGet]
         public List<Book> Get() =>
-            _bookService.Get();
+            _bookService.GetAll();
 
         [HttpGet("{id}")]
         public Book Get(string id)
         {
-            var book = _bookService.Get(id);
+            var book = _bookService.GetById(id);
 
             if (book == null)
             {
@@ -43,14 +43,14 @@ namespace BooksApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(string id, Book bookIn)
         {
-            var book = _bookService.Get(id);
+            var book = _bookService.GetById(id);
 
             if (book == null)
             {
                 return NotFound();
             }
 
-            _bookService.Update(id, bookIn);
+            _bookService.UpdateById(id, bookIn);
 
             return NoContent();
         }
@@ -58,7 +58,7 @@ namespace BooksApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var book = _bookService.Get(id);
+            var book = _bookService.GetById(id);
 
             if (book == null)
             {
