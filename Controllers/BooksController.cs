@@ -17,20 +17,20 @@ namespace BooksApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Book>> Get() =>
+        public List<Book> Get() =>
             _bookService.Get();
 
         [HttpGet("{id}")]
-        public ActionResult<Book> Get(string id)
+        public Book Get(string id)
         {
             var book = _bookService.Get(id);
 
             if (book == null)
             {
-                return NotFound();
+                return null;
             }
 
-            return book;
+            return null;
         }
 
         [HttpPost]
@@ -68,6 +68,13 @@ namespace BooksApi.Controllers
             _bookService.Remove(book.Id);
 
             return NoContent();
+        }
+
+        [HttpGet("price/{id}")]
+        public List<object> Get(int price)
+        {
+            var bookNames = _bookService.GetNames(price);
+            return bookNames;
         }
     }
 }

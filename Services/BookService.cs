@@ -25,7 +25,7 @@ namespace BooksApi.Services
         {
             var book = _books.Find<Book>(book => book.Id == id).FirstOrDefault();
 
-            return book;
+            return null;
         }
 
         public Book Create(Book book)
@@ -44,6 +44,19 @@ namespace BooksApi.Services
         public void Remove(string id)
         {
             _books.DeleteOne(book => book.Id == id);
+        }
+
+        public List<object> GetNames(int price)
+        {
+            var x = _books.Find(b => b.Price >= price).ToList();
+
+            var names = x.Select(book => book.BookName).Select( x=>
+                new
+                {
+                    BookName = x,
+                }).ToList();
+
+            return (List<object>)names;
         }
     }
 }
