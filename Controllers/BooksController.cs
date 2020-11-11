@@ -71,7 +71,7 @@ namespace BooksApi.Controllers
         }
 
         [HttpGet("price/{id}")]
-        public List<object> Get(int price)
+        public List<string> Get(int price)
         {
             var bookNames = _bookService.GetNames(price);
             return bookNames;

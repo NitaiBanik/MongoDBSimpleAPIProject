@@ -46,17 +46,12 @@ namespace BooksApi.Services
             _books.DeleteOne(book => book.Id == id);
         }
 
-        public List<object> GetNames(int price)
+        public List<string> GetNames(int price)
         {
             var x = _books.Find(b => b.Price >= price).ToList();
 
-            var names = x.Select(book => book.BookName).Select( x=>
-                new
-                {
-                    BookName = x,
-                }).ToList();
-
-            return (List<object>)names;
+            var names = x.Select(book => book.BookName).ToList();
+            return names;
         }
     }
 }
