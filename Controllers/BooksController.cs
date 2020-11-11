@@ -40,6 +40,13 @@ namespace BooksApi.Controllers
 
         }
 
+        [HttpPost("{customer}")]
+        public void CreateCustomer(Customer customer)
+        {
+            _bookService.CreateCustomer(customer);
+
+        }
+
         [HttpPut("{id}")]
         public IActionResult Update(string id, Book bookIn)
         {

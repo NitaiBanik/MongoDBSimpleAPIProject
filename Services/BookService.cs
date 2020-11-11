@@ -8,6 +8,7 @@ namespace BooksApi.Services
     public class BookService
     {
         private readonly IMongoCollection<Book> _books;
+        private readonly IMongoCollection<Customer> _customer;
 
         public BookService(IBookstoreDatabaseSettings settings)
         {
@@ -15,6 +16,7 @@ namespace BooksApi.Services
             var database = client.GetDatabase(settings.DatabaseName);
 
             _books = database.GetCollection<Book>(settings.BooksCollectionName);
+            _customer = database.GetCollection<Customer>(settings.CustomerCollectionName);
         }
 
         public List<Book> GetAll()
@@ -30,9 +32,13 @@ namespace BooksApi.Services
 
         public Book Create(Book book)
         {
-            _books.InsertOne(book);
-
+            _books.InsertOne(book);       
             return book;
+        }
+        public Customer CreateCustomer(Customer customer)
+        {
+            _customer.InsertOne(customer);
+            return customer;
         }
 
         public void UpdateById(string id, Book bookIn)
@@ -51,6 +57,7 @@ namespace BooksApi.Services
             var x = _books.Find(b => b.Price >= price).ToList();
 
             var names = x.Select(book => book.BookName).ToList();
+           
             return names;
         }
     }
